@@ -1,0 +1,11 @@
+[package]
+name = "nostd-msvc-build"
+version = "0.1.0"
+edition = "2021"
+license = "0BSD"
+
+[features]
+default = ["console"]
+console = []
+gui = []
+xp = []

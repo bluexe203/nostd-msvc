@@ -1,0 +1,9 @@
+[package]
+name = "nostd-msvc-runtime"
+version = "0.1.0"
+edition = "2021"
+license = "0BSD"
+
+[build-dependencies]
+# Build logic (using the other crate in the workspace)
+nostd-msvc-build = { path = "../nostd-msvc-build" }
