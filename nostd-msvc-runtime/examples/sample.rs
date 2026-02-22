@@ -13,7 +13,7 @@ use nostd_msvc_runtime::*;
 setup_console_app!();
 
 // Required to use Vec, Box, etc. in no_std
-use alloc::vec::Vec;
+use alloc::{string::String, vec::Vec};
 
 /// The actual logic of your application
 fn main() {
@@ -22,6 +22,11 @@ fn main() {
     numbers.push(10);
     numbers.push(20);
     numbers.push(30);
+
+    let mut array = Vec::new();
+    let mut str = String::from("test");
+    str.push_str("test2");
+    array.push(&str);
 
     // If we had a way to print (like a custom println!), 
     // we could verify the values here.

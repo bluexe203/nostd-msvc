@@ -1,4 +1,5 @@
 use core::alloc::{GlobalAlloc, Layout};
+use crate::define_lib;
 
 pub struct HeapAllocator;
 
@@ -19,24 +20,8 @@ unsafe impl GlobalAlloc for HeapAllocator {
     }
 }
 
-macro_rules! define_cdecl {
-    ($lib_name:expr, { $($f_name:ident($($arg:ident: $ty:ty),*) $( -> $ret:ty )?;)* }) => {
-        #[cfg_attr(target_arch = "x86", link(name = $lib_name, kind = "raw-dylib", import_name_type = "undecorated"))]
-        #[cfg_attr(not(target_arch = "x86"), link(name = $lib_name, kind = "raw-dylib"))]
-        extern "C" {
-            $(
-                #[cfg_attr(
-                    target_arch = "x86", 
-                    link_name = concat!("_", stringify!($f_name))
-                )]
-                pub fn $f_name($($arg: $ty),*) $( -> $ret )?;
-            )*
-        }
-    };
-}
-
-define_cdecl!("msvcrt", {
-    _aligned_malloc(size: usize, alignment: usize) -> *mut core::ffi::c_void;
-    _aligned_free(ptr: *mut core::ffi::c_void);
-    _aligned_realloc(ptr: *mut core::ffi::c_void, size: usize, alignment: usize) -> *mut core::ffi::c_void;
+define_lib!("msvcrt", "C",{
+    pub fn _aligned_malloc(size: usize, alignment: usize) -> *mut core::ffi::c_void;
+    pub fn _aligned_free(ptr: *mut core::ffi::c_void);
+    pub fn _aligned_realloc(ptr: *mut core::ffi::c_void, size: usize, alignment: usize) -> *mut core::ffi::c_void;
 });
