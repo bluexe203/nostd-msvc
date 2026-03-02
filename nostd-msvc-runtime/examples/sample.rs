@@ -28,6 +28,13 @@ fn main() {
     str.push_str("test2");
     array.push(&str);
 
+    let mut val = 100i64;
+    val = val / 3;
+
+    if val < 34 {
+        str.push_str(" < 4.0");
+    }
+
     // If we had a way to print (like a custom println!), 
     // we could verify the values here.
     

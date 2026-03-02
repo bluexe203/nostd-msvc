@@ -11,6 +11,10 @@ define_lib!("msvcrt", "C", {
 });
 
 // --- Low-level runtime symbols ---
+#[no_mangle]
+pub unsafe extern "C" fn __CxxFrameHandler3() -> i32 { 0 }
+#[used]
+static _STUB_CXX: unsafe extern "C" fn() -> i32 = __CxxFrameHandler3;
 
 define_lib!("ntdll", "C", {
     // Arithmetic helpers (x86)
