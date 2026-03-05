@@ -40,8 +40,3 @@ pub fn exit_process(code: i32) -> ! {
     }
     loop {}
 }
-
-/// Perform startup initialization
-pub fn startup() {
-    // Reserved for future use
-}
