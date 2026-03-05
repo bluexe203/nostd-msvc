@@ -17,8 +17,8 @@ pub fn configure_linker() {
     println!("cargo:rustc-link-arg=/NODEFAULTLIB:libcmt");
     println!("cargo:rustc-link-arg=/NODEFAULTLIB:msvcrt");
 
-    let is_gui = std::env::var("CARGO_FEATURE_GUI").is_ok();
-    let is_xp = std::env::var("CARGO_FEATURE_XP").is_ok();
+    let is_xp = cfg!(feature = "xp");
+    let is_gui = cfg!(feature = "gui");
 
     let (sub, entry) = if is_gui { 
         ("WINDOWS", "WinMainCRTStartup") 
