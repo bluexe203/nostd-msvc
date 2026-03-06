@@ -23,11 +23,16 @@ define_lib!("ntdll", "C", {
     pub fn _aulldiv();
     pub fn _aullrem();
     pub fn _allshl();
-    pub fn _allshr();
-    
-    // Stack probe (Required for large stack allocations)
-    pub fn _chkstk();
+    pub fn _allshr();    
 });
+
+// Stack probe (Required for large stack allocations)
+#[link(name = "ntdll", kind = "raw-dylib")]
+extern "C" {
+    #[cfg_attr(target_arch = "x86", link_name = "_chkstk")]
+    #[cfg_attr(not(target_arch = "x86"), link_name = "__chkstk")]
+    pub fn chkstk();
+}
 
 // Floating-point flag (Required by MSVC)
 #[no_mangle]
